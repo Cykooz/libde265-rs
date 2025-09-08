@@ -220,7 +220,7 @@ impl DecoderInput {
     /// If you want to flush the data and force decoding of the data so far
     /// (e.g. at the end of a file), call `decode_data()` with an empty slice as
     /// the `data` argument.
-    #[deprecated(note = "you should use `push_data` or `push_nal` and `decode` instead.")]
+    #[deprecated(note = "you should use `push_data` or `push_nal` and `decode` methods instead.")]
     pub fn decode_data(&mut self, data: &[u8]) -> Result<()> {
         let result =
             unsafe { de265_decode_data(self.inner(), data.as_ptr() as _, data.len() as _) };
@@ -228,7 +228,7 @@ impl DecoderInput {
     }
 
     /// Clear decoder state. Call this when skipping in the stream.
-    pub fn de265_reset(&mut self) {
+    pub fn reset(&mut self) {
         unsafe { de265_reset(self.inner()) };
     }
 
