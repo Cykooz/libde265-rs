@@ -1,0 +1,63 @@
+name: Check and Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: { }
+
+
+env:
+  CARGO_TERM_COLOR: always
+
+
+jobs:
+  run_tests_on_linux:
+    name: Test `cargo check/test` on Ubuntu
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: root suid tar
+        run: sudo chown root:sudo /bin/tar && sudo chmod u+s /bin/tar
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: "true"
+
+      - name: Run tests
+        run: |
+          cargo check -p libde265-rs --features latest,embedded-libde265
+          cargo test --features latest,embedded-libde265
+
+
+  run_tests_on_windows:
+    name: Test `cargo check/test` on Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache rust artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: true
+          cache-on-failure: "true"
+
+      - name: Cache vcpkg
+        id: cache-vcpkg
+        uses: actions/cache@v4
+        with:
+          path: "target/vcpkg"
+          key: ${{ runner.os }}-vcpkg
+
+      - name: Install cargo-vcpkg
+        run: cargo install cargo-vcpkg
+
+      - name: Build libde265
+        run: cargo vcpkg -v build
+
+      - name: Run tests
+        run: |
+          cargo check -p libde265-sys --features latest
+          cargo test --features latest
