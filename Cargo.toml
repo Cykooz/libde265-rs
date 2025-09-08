@@ -1,0 +1,49 @@
+[package]
+name = "libde265-rs"
+version = "0.0.1"
+authors = ["Kirill Kuzminykh <cykooz@gmail.com>"]
+edition = "2021"
+rust-version = "1.85.1"
+description = "Safe wrapper around the libde265-sys crate to decode H265 streams."
+readme = "README.md"
+keywords = ["libde265", "h265"]
+license = "MIT"
+repository = "https://github.com/cykooz/libde265-rs"
+documentation = "https://docs.rs/crate/libde265-rs"
+
+
+[dependencies]
+libde265-sys = { git = "https://github.com/Cykooz/libde265-sys" }
+thiserror = "2.0"
+
+
+[features]
+default = ["latest"]
+v1_0 = ["libde265-sys/v1_0"]
+latest = ["v1_0"]
+embedded-libde265 = ["libde265-sys/embedded-libde265"]
+
+
+[package.metadata.docs.rs]
+# document all features
+all-features = true
+
+
+[package.metadata.vcpkg]
+git = "https://github.com/microsoft/vcpkg"
+tag = "2025.08.27"
+dependencies = ["libde265"]
+
+
+[package.metadata.vcpkg.target]
+x86_64-pc-windows-msvc = { triplet = "x64-windows-static-md", dependencies = ["libde265"] }
+
+
+[package.metadata.release]
+pre-release-replacements = [
+    { file = "CHANGELOG.md", search = "Unreleased", replace = "{{version}}" },
+    { file = "CHANGELOG.md", search = "ReleaseDate", replace = "{{date}}" }
+]
+
+# Header of the next release in CHANGELOG.md:
+#   ## [Unreleased] - ReleaseDate
