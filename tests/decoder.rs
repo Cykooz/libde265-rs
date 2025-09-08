@@ -11,6 +11,14 @@ fn decode_h265() {
     let mut file = File::open("./data/girlshy.h265").unwrap();
     let mut buf = vec![0; 1024];
     loop {
+        let size = file.read(&mut buf).unwrap();
+        if size == 0 {
+            // EOF
+            input.flush_data().unwrap();
+        } else {
+            input.push_data(&buf[0..size], 0, 0).unwrap();
+        }
+
         match input.decode() {
             Ok(DecodeResult::Done) => break,
             Ok(DecodeResult::HasImagesInBuffer) | Err(DeError::ErrorImageBufferFull) => {
@@ -28,14 +36,6 @@ fn decode_h265() {
             }
             Err(DeError::ErrorWaitingForInputData) => {}
             Err(err) => panic!("{:?}", err),
-        }
-
-        let size = file.read(&mut buf).unwrap();
-        if size == 0 {
-            // EOF
-            input.flush_data().unwrap();
-        } else {
-            input.push_data(&buf[0..size], 0, 0).unwrap();
         }
     }
 
