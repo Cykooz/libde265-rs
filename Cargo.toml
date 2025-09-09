@@ -18,9 +18,9 @@ thiserror = "2.0"
 
 
 [features]
-#default = ["latest"]
+default = ["latest"]
 #v1_0 = ["libde265-sys/v1_0"]
-#latest = ["v1_0"]
+latest = [] #"v1_0"]
 embedded-libde265 = ["libde265-sys/static"] # "libde265-sys/embedded-libde265"]
 
 
