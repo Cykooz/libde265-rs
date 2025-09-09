@@ -1,5 +1,15 @@
 # Change Log
 
+## [Unreleased] - ReleaseDate
+
+### Added
+
+- Added `get_error_text()` function to get error text by error code.
+
+### Changes
+
+- **BREAKING**: `DecodeResult::HasImagesInBuffer` was renamed to `DecodeResult::CallAgain`.
+
 ## [0.1.1] - 2025-09-09
 
 ### Fixes

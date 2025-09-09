@@ -6,6 +6,7 @@
 mod decoder;
 mod errors;
 mod image;
+
 pub use decoder::*;
 pub use errors::*;
 pub use image::*;

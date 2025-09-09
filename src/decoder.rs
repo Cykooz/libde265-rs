@@ -82,8 +82,9 @@ impl Drop for DecoderContext {
 pub enum DecodeResult {
     /// The decoding process was finished.
     Done,
-    /// The decoded picture buffer has some images in it.
-    HasImagesInBuffer,
+    /// The decoding process isn't yet finished,
+    /// and the [`DecoderInput::decode()`] method must be called again.
+    CallAgain,
 }
 
 /// Instance of this type is used to push input data for the decoder.
@@ -190,7 +191,8 @@ impl DecoderInput {
     ///
     /// The result can be one of the following values:
     /// - [`DecodeResult::Done`] - decoding was finished;
-    /// - [`DecodeResult::HasImagesInBuffer`] - the decoded picture buffer contains some images.
+    /// - [`DecodeResult::CallAgain`] - the decoding process isn't yet finished,
+    ///   and the [`DecoderInput::decode()`] method must be called again.
     ///
     /// There are a few errors that indicate that this method should be called again
     /// (possibly after resolving the indicated problem).
@@ -203,7 +205,7 @@ impl DecoderInput {
         let result = unsafe { de265_decode(self.inner(), &mut more) };
         DeError::from_raw(result).map(|_| {
             if more > 0 {
-                DecodeResult::HasImagesInBuffer
+                DecodeResult::CallAgain
             } else {
                 DecodeResult::Done
             }

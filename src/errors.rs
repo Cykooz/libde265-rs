@@ -1,3 +1,6 @@
+use std::borrow::Cow;
+use std::ffi::CStr;
+
 use libde265_sys::de265_error as de;
 use thiserror::Error;
 
@@ -106,7 +109,7 @@ pub enum DeError {
     WarningReferenceImageChromaFormatDoesNotMatch,
     #[error("Warning: Invalid slice header index access")]
     WarningInvalidSliceHeaderIndexAccess,
-    #[error("Unknown result code: {0}")]
+    #[error("{}", get_error_text(*.0))]
     Unknown(u32),
 }
 
@@ -215,4 +218,14 @@ impl DeError {
         };
         Err(error)
     }
+}
+
+pub fn get_error_text(err_code: u32) -> Cow<'static, str> {
+    let text_ptr = unsafe { libde265_sys::de265_get_error_text(err_code) };
+    if !text_ptr.is_null() {
+        if let Ok(text) = unsafe { CStr::from_ptr(text_ptr) }.to_str() {
+            return Cow::Borrowed(text);
+        }
+    }
+    Cow::Owned(format!("Unknown result code: {err_code}"))
 }
