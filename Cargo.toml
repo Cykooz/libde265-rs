@@ -18,15 +18,16 @@ thiserror = "2.0"
 
 
 [features]
-default = ["latest"]
+default = ["latest", "system-libde265"]
 #v1_0 = ["libde265-sys/v1_0"]
 latest = [] #"v1_0"]
+system-libde265 = ["libde265-sys/system"]
 embedded-libde265 = ["libde265-sys/static"] # "libde265-sys/embedded-libde265"]
 
 
 [package.metadata.docs.rs]
 # document all features
-all-features = true
+# all-features = true
 
 
 [package.metadata.vcpkg]
