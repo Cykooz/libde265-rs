@@ -13,15 +13,15 @@ documentation = "https://docs.rs/crate/libde265-rs"
 
 
 [dependencies]
-libde265-sys = { git = "https://github.com/Cykooz/libde265-sys" }
+libde265-sys = "0.1.1"
 thiserror = "2.0"
 
 
 [features]
-default = ["latest"]
-v1_0 = ["libde265-sys/v1_0"]
-latest = ["v1_0"]
-embedded-libde265 = ["libde265-sys/embedded-libde265"]
+#default = ["latest"]
+#v1_0 = ["libde265-sys/v1_0"]
+#latest = ["v1_0"]
+embedded-libde265 = ["libde265-sys/static"] # "libde265-sys/embedded-libde265"]
 
 
 [package.metadata.docs.rs]
