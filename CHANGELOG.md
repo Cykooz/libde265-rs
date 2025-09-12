@@ -1,5 +1,11 @@
 # Change Log
 
+## [Unreleased] - ReleaseDate
+
+### Changes
+
+- The `libde265-sys` crate implementation has been changed to my own version from GitHub.
+
 ## [0.2.0] - 2025-09-09
 
 ### Added

@@ -2,27 +2,26 @@
 name = "libde265-rs"
 version = "0.2.0"
 authors = ["Kirill Kuzminykh <cykooz@gmail.com>"]
-edition = "2021"
+edition = "2024"
 rust-version = "1.85.1"
 description = "Safe wrapper around the libde265-sys crate to decode H265 streams."
 readme = "README.md"
-keywords = ["libde265", "h265"]
+keywords = ["libde265", "h265", "hevc"]
 license = "MIT"
 repository = "https://github.com/cykooz/libde265-rs"
 documentation = "https://docs.rs/crate/libde265-rs"
 
 
 [dependencies]
-libde265-sys = "0.1.1"
+libde265-sys = { git = "https://github.com/Cykooz/libde265-sys" }
 thiserror = "2.0"
 
 
 [features]
-default = ["latest", "system-libde265"]
-#v1_0 = ["libde265-sys/v1_0"]
-latest = [] #"v1_0"]
-system-libde265 = ["libde265-sys/system"]
-embedded-libde265 = ["libde265-sys/static"] # "libde265-sys/embedded-libde265"]
+default = ["latest"]
+v1_0 = ["libde265-sys/v1_0"]
+latest = ["v1_0"]
+embedded-libde265 = ["libde265-sys/embedded-libde265"]
 
 
 [package.metadata.docs.rs]
