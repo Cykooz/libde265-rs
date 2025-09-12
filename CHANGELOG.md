@@ -4,7 +4,7 @@
 
 ### Changes
 
-- The `libde265-sys` crate implementation has been changed to my own version from GitHub.
+- The `libde265-sys` crate has been replaced to the `libde265-sys2`.
 
 ## [0.2.0] - 2025-09-09
 

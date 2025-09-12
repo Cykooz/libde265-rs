@@ -13,7 +13,7 @@ documentation = "https://docs.rs/crate/libde265-rs"
 
 
 [dependencies]
-libde265-sys = { git = "https://github.com/Cykooz/libde265-sys" }
+libde265-sys = { package = "libde265-sys2", version = "0.1.0" }
 thiserror = "2.0"
 
 

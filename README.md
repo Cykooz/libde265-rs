@@ -1,6 +1,6 @@
 # libde265-rs
 
-Safe wrapper around the [libde265-sys](https://github.com/Cykooz/libde265-sys)
+Safe wrapper around the [libde265-sys2](https://github.com/Cykooz/libde265-sys)
 crate to decode H625 streams.
 
 [CHANGELOG](https://github.com/Cykooz/libde265-rs/blob/master/CHANGELOG.md)
@@ -11,14 +11,14 @@ crate to decode H625 streams.
 
 ### Linux
 
-Crate `libde265-sys` uses `pkg-confing` command to find installed `libde265`.
+Crate `libde265-sys2` uses `pkg-confing` command to find installed `libde265`.
 
 You can also enable `embedded-libde265` feature to compile `libde265` from
-embedded into `libde265-sys` crate sources and then link it statically.
+embedded into `libde265-sys2` crate sources and then link it statically.
 
 ### Windows
 
-Crate `libde265-sys` uses [vcpkg crate](https://crates.io/crates/vcpkg)
+Crate `libde265-sys2` uses [vcpkg crate](https://crates.io/crates/vcpkg)
 to find `libde265` installed with help of `vcpkg`.
 
 You can use [cargo-vcpkg](https://crates.io/crates/cargo-vcpkg)
